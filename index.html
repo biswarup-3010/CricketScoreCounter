@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cricket Score Counter</title>
+
+    <style>
+      input {
+        text-align: center;
+        color: rgb(0, 0, 104);
+        height: 50px;
+        width: 280px;
+        font-size: 30px;
+        padding: 0px 0px;
+        margin: 0px 0px;
+        border-radius: 5px;
+        border-color: rgb(0, 0, 0);
+        background-color: rgb(255, 202, 132);
+        display: flex;
+        border-radius: 20px;
+      }
+      h3 {
+        height: fit-content;
+        font-size: 1.5em;
+        color: crimson;
+        padding: 0%;
+        margin: 0 0;
+      }
+      fieldset {
+        border: none;
+      }
+      body {
+        background-color: rgb(123, 123, 123);
+      }
+      .row {
+        text-align: center;
+      }
+      .counter {
+        margin: auto;
+        padding: 20px;
+        text-align: center;
+        width: fit-content;
+        background-color: rgb(38, 38, 38);
+        border: 5px solid black;
+        border-radius: 20px;
+        box-shadow: inset 10px 10px 10px -10px rgb(0 0 0),
+          inset -10px 10px 10px -10px rgb(0 0 0);
+      }
+      .button {
+        width: 60px;
+        height: 60px;
+        padding: 5px 5px;
+        margin: 10px 10px;
+        font-size: 2em;
+        border: 2px solid rgb(251, 149, 31);
+        border-radius: 40%;
+        background-color: rgb(59, 54, 54);
+        color: rgb(237, 237, 237);
+        cursor: pointer;
+      }
+      .heading {
+        color: rgb(255, 140, 0);
+        font-size: 2.5em;
+      }
+
+      .darkMode {
+        background-color: rgb(205, 218, 228);
+        color: black;
+      }
+      .lightMode {
+        background-color: black;
+        color: rgb(205, 218, 228);
+      }
+      .or {
+        height: 1.2em;
+        width: 1.2em;
+        color: rgb(250, 235, 215);
+        background-color: rgb(0, 7, 7);
+        border: 1px solid rgb(252, 249, 249);
+        border-radius: 50%;
+      }
+      .or:hover {
+        color: rgb(0, 7, 7);
+        background-color: antiquewhite;
+        border: 1px solid rgb(250, 235, 215);
+      }
+      .button:hover {
+        color: rgb(255, 89, 0);
+        background-color: rgb(223, 248, 255);
+      }
+      .but_sp {
+        border-color: rgb(255, 59, 99);
+        color: rgb(255, 59, 99);
+        background-color: #a3b5ba;
+      }
+      .but_sp:hover {
+        border-color: #a3b5ba;
+        background-color: crimson;
+        color: #a3b5ba;
+      }
+      .x {
+        border-color: #c803ff;
+        color: #c803ff;
+        background-color: #a3b5ba;
+      }
+      .x:hover {
+        border-color: #a3b5ba;
+        color: #a3b5ba;
+        background-color: #c803ff;
+      }
+      .time {
+        font-size: 0.8em;
+        background-color: rgb(38, 38, 38);
+        border: none;
+        color: bisque;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="counter">
+      <button class="or" onclick="mode()"></button>
+      <div class="row">
+        <h1 class="heading">Cricket Score</h1>
+      </div>
+      <div class="row">
+        <fieldset>
+          <legend><h3>Score Board</h3></legend>
+          <input type="text" name="input" id="input1" disabled />
+        </fieldset>
+      </div>
+      <div class="row">
+        <fieldset>
+          <legend><h3>Over</h3></legend>
+          <input type="text" class="out_sp" name="input" id="input2" disabled />
+        </fieldset>
+      </div>
+      <div class="row">
+        <fieldset>
+          <input
+            type="text"
+            class="out_sp time"
+            name="input"
+            id="input3"
+            disabled
+          />
+        </fieldset>
+      </div>
+
+      <div class="row">
+        <button class="button but_sp">C</button>
+        <button class="button">W</button>
+        <button class="button x">B</button>
+      </div>
+      <div class="row">
+        <button class="button">+1</button>
+        <button class="button">+2</button>
+      </div>
+      <div class="row">
+        <button class="button">+3</button>
+        <button class="button">+4</button>
+        <button class="button">+6</button>
+      </div>
+    </div>
+
+    <script>
+      let Runs = "0";
+      let wickets = "0";
+      let Overs = "0.0";
+      let string = "";
+      let X = new Date();
+      document.getElementById("input1").value = Runs + " - " + wickets;
+      document.getElementById("input2").value = Overs;
+      document.getElementById("input3").value =
+        X.toDateString() +
+        " | " +
+        (X.getHours() % 12 < 12 ? "0" + (X.getHours() % 12) : 12) +
+        ":" +
+        (X.getMinutes() < 10 ? "0" + X.getMinutes() : X.getMinutes()) +
+        " " +
+        (X.getHours() % 12 < 12 ? "pm" : "am");
+
+      let buttons = document.querySelectorAll(".button");
+
+      Array.from(buttons).forEach((button) => {
+        button.addEventListener("click", (e) => {
+          let x = new Date();
+          if (e.target.innerHTML == "C") {
+            Runs = "0";
+            wickets = "0";
+            Overs = "0.0";
+            string = "0";
+            document.getElementById("input1").value = Runs + " - " + wickets;
+            document.getElementById("input2").value = Overs;
+            document.getElementById("input3").value =
+              x.toDateString() +
+              " | " +
+              (x.getHours() % 12 < 12 ? "0" + (x.getHours() % 12) : 12) +
+              ":" +
+              x.getMinutes() +
+              " " +
+              (x.getHours() % 12 < 12 ? "pm" : "am");
+          } else if (wickets != "10") {
+            if (e.target.innerHTML == "W") {
+              wickets = wickets + "+1";
+              wickets = eval(wickets);
+              document.getElementById("input1").value = Runs + " - " + wickets;
+              document.getElementById("input3").value =
+                x.toDateString() +
+                " | " +
+                (x.getHours() % 12 < 12 ? "0" + (x.getHours() % 12) : 12) +
+                ":" +
+                x.getMinutes() +
+                " " +
+                (x.getHours() % 12 < 12 ? "pm" : "am");
+            } else if (e.target.innerHTML == "B") {
+              string = string + "+1";
+              string = eval(string);
+              Overs = eval((string - (string % 6)) / 6);
+              document.getElementById("input2").value =
+                Overs + "." + eval(string % 6);
+              document.getElementById("input3").value =
+                x.toDateString() +
+                " | " +
+                (x.getHours() % 12 < 12 ? "0" + (x.getHours() % 12) : 12) +
+                ":" +
+                x.getMinutes() +
+                " " +
+                (x.getHours() % 12 < 12 ? "pm" : "am");
+            } else {
+              console.log(e.target);
+              Runs = Runs + e.target.innerHTML;
+              Runs = eval(Runs);
+              document.querySelector("input").value = Runs;
+              document.getElementById("input1").value = Runs + " - " + wickets;
+              document.getElementById("input3").value =
+                x.toDateString() +
+                " | " +
+                (x.getHours() % 12 < 12 ? "0" + (x.getHours() % 12) : 12) +
+                ":" +
+                x.getMinutes() +
+                " " +
+                (x.getHours() % 12 < 12 ? "pm" : "am");
+            }
+            document.getElementById("input3").value =
+              x.toDateString() +
+              " | " +
+              (x.getHours() % 12 < 12 ? "0" + (x.getHours() % 12) : 12) +
+              ":" +
+              x.getMinutes() +
+              " " +
+              (x.getHours() % 12 < 12 ? "pm" : "am");
+          }
+        });
+      });
+      function mode() {
+        var element = document.body;
+        element.classList.toggle("darkMode");
+      }
+    </script>
+  </body>
+</html>
